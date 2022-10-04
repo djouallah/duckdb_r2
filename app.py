@@ -1,9 +1,12 @@
 import streamlit as st
 import boto3, os
 import duckdb
-con=duckdb.connect()
-df = con.execute("select l_shipdate, count(*) from 'lineitem/*/*.parquet' group by 1").df()
-st.write(df)
+try :
+   con=duckdb.connect()
+   df = con.execute("select l_shipdate, count(*) from 'lineitem/*/*.parquet' group by 1").df()
+   st.write(df)
+except :
+ st.write("data refreshing")
 
 
 
@@ -31,3 +34,4 @@ def download() :
     path, filename = os.path.split(s3_object)
     os.makedirs(path)
     bucket.download_file(s3_object, path +"/"+filename)
+download()
