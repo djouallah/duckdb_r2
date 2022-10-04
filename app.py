@@ -35,4 +35,4 @@ def download() :
     os.makedirs(path)
     bucket.download_file(s3_object, path +"/"+filename)
     st.write(path +"/"+filename)
-#download()
+download()
