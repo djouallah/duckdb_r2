@@ -1,7 +1,6 @@
 from distutils.log import error
 import streamlit as st
-import boto3, os
-import duckdb
+import boto3, os , duckdb
 SQL = st.text_input('Write a SQL Query', 'select  distinct filename, count(*)  from lineitem group by 1')
 try :
    con=duckdb.connect()
@@ -10,8 +9,6 @@ try :
    st.write(df)
 except :
  st.write("Your SQL is not correct")
-
-
 def download() :
  s3 = boto3.resource('s3',
   endpoint_url = st.secrets["endpoint_url_secret"] ,
