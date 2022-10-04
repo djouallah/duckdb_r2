@@ -5,7 +5,7 @@ import duckdb
 SQL = st.text_input('Write a SQL Query', 'select  distinct filename, count(*)  from lineitem group by 1')
 try :
    con=duckdb.connect()
-   con.execute("create or replace view lineitem as select * from parquet_scan('/lineitem/*/*.parquet',filename=true,HIVE_PARTITIONING=1)")
+   con.execute("create or replace view lineitem as select * from parquet_scan('lineitem/*/*.parquet',filename=true,HIVE_PARTITIONING=1)")
    df = con.execute(SQL).df()
    st.write(df)
 except :
