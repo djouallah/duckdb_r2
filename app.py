@@ -29,7 +29,7 @@ def download() :
         local.append(os.path.join(path,name).replace("\\","/"))
  #st.write(local)
  l=set(remote) - set(local)
- st.write("new files to download"+l)
+ st.write("new files to download"+str(l))
  for s3_object in l:
     path, filename = os.path.split(s3_object)
     os.makedirs(path)
