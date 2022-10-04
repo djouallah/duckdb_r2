@@ -6,17 +6,13 @@ try :
    df = con.execute("select l_shipdate, count(*) from 'lineitem/*/*.parquet' group by 1").df()
    st.write(df)
 except :
- st.write("data refreshing")
-
-
-
-
+ st.write("Download Data from Cloudflare R2")
 def download() :
  s3 = boto3.resource('s3',
   endpoint_url = st.secrets["endpoint_url_secret"] ,
   aws_access_key_id = st.secrets["aws_access_key_id_secret"],
   aws_secret_access_key = st.secrets["aws_secret_access_key_secret"]
- )
+  )
  bucket = s3.Bucket('delta')
 
  remote=[]
@@ -29,9 +25,10 @@ def download() :
         local.append(os.path.join(path,name).replace("\\","/"))
  #st.write(local)
  l=set(remote) - set(local)
- st.write("new files to download"+str(l))
+ st.write("new files to download"+l)
  for s3_object in l:
     path, filename = os.path.split(s3_object)
     os.makedirs(path)
     bucket.download_file(s3_object, path +"/"+filename)
+    st.write(path +"/"+filename)
 download()
