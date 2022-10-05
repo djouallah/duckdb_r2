@@ -1,2 +1,2 @@
 boto3
-duckdb >= 0.5.2.dev475
+duckdb >= 0.5.2
