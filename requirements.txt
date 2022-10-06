@@ -1,3 +1,2 @@
 boto3
 duckdb
-streamlit-aggrid
