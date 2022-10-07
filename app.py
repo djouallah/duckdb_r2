@@ -4,6 +4,7 @@ SQL = st.text_input('Write a SQL Query', 'select  distinct filename, count(*)  f
 try :
    con=duckdb.connect()
    con.execute("create or replace view lineitem as select * from parquet_scan('lineitem/*/*.parquet',filename=true,HIVE_PARTITIONING=1)")
+   con.execute("install httpfs; load httpfs")
    df = con.execute(SQL).df()
    st.write(df)
 except :
