@@ -5,6 +5,7 @@ st.set_page_config(
     page_icon="✅",
     layout="wide",
                   )
+col1, col2 = st.columns([3, 1])
 SQL = st.text_input('Write a SQL Query', 'select  *  from "https://pandemicdatalake.blob.core.windows.net/public/curated/covid-19/ecdc_cases/latest/ecdc_cases.parquet" limit 5')
 try :
    con=duckdb.connect()
@@ -43,7 +44,7 @@ def convert_df(df):
             return df.to_csv().encode('utf-8')
 
 csv = convert_df(df)
-download_button(
+col2.download_button(
             label="Download data as CSV",
             data=csv,
             file_name='large_df.csv',
