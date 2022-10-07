@@ -1,6 +1,11 @@
 import streamlit as st
 import boto3, os , duckdb
-SQL = st.text_input('Write a SQL Query', 'select  *  from "https://shell.duckdb.org/data/tpch/0_01/parquet/lineitem.parquet" limit 5')
+st.set_page_config(
+    page_title="Example of using DuckDB",
+    page_icon="✅",
+    layout="wide",
+                  )
+SQL = st.text_input('Write a SQL Query', 'select  *  from "https://pandemicdatalake.blob.core.windows.net/public/curated/covid-19/ecdc_cases/latest/ecdc_cases.parquet" limit 5')
 try :
    con=duckdb.connect()
    con.execute("create or replace view lineitem as select * from parquet_scan('lineitem/*/*.parquet',filename=true,HIVE_PARTITIONING=1)")
@@ -33,3 +38,14 @@ def download() :
     bucket.download_file(s3_object, path +"/"+filename)
     st.write(path +"/"+filename)
 download()
+def convert_df(df):
+            # IMPORTANT: Cache the conversion to prevent computation on every rerun
+            return df.to_csv().encode('utf-8')
+
+csv = convert_df(result)
+download_button(
+            label="Download data as CSV",
+            data=csv,
+            file_name='large_df.csv',
+            mime='text/csv',
+        )
