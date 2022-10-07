@@ -1,6 +1,6 @@
 import streamlit as st
 import boto3, os , duckdb
-SQL = st.text_input('Write a SQL Query', 'select  distinct filename, count(*)  from lineitem group by 1')
+SQL = st.text_input('Write a SQL Query', 'select  *  from "https://shell.duckdb.org/data/tpch/0_01/parquet/lineitem.parquet" limit 5')
 try :
    con=duckdb.connect()
    con.execute("create or replace view lineitem as select * from parquet_scan('lineitem/*/*.parquet',filename=true,HIVE_PARTITIONING=1)")
