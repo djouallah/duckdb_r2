@@ -6,7 +6,7 @@ st.set_page_config(
     layout="wide",
                   )
 col1, col2 = st.columns([3, 1])
-SQL = st.text_input('Write a SQL Query','SUMMARIZE select * from "https://pandemicdatalake.blob.core.windows.net/public/curated/covid-19/ecdc_cases/latest/ecdc_cases.parquet"')
+SQL = st.text_input('Write a SQL Query','select  hour(tpep_pickup_datetime) as hour , sum(total_amount) as sum  from "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2022-06.parquet"  group by 1 order by sum desc')
 try :
    con=duckdb.connect()
    con.execute("create or replace view lineitem as select * from parquet_scan('lineitem/*/*.parquet',filename=true,HIVE_PARTITIONING=1)")
