@@ -8,7 +8,7 @@ st.set_page_config(
     layout="wide",
                   )
 col1, col2 = st.columns([3, 1])
-SQL = st.text_input('Write a SQL Query','select  * "https://github.com/djouallah/tcph_web/raw/main/lineitem.parquet" ')
+SQL = st.text_input('Write a SQL Query','select  * from "https://github.com/djouallah/tcph_web/raw/main/lineitem.parquet" ')
 try :
    con=duckdb.connect()
    con.execute("create or replace view lineitem as select * from parquet_scan('lineitem/*/*.parquet',filename=true,HIVE_PARTITIONING=1)")
