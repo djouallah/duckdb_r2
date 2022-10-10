@@ -8,7 +8,7 @@ st.set_page_config(
     layout="wide",
                   )
 col1, col2 = st.columns([3, 1])
-SQL = st.text_input('Write a SQL Query','select * from  "https://github.com/djouallah/tcph_web/raw/main/lineitem.parquet" limit 300 ')
+SQL = st.text_input('Write a SQL Query','select  hour(tpep_pickup_datetime) as hour , sum(total_amount) as sum  from "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2022-06.parquet"  group by 1 order by sum desc')
 try :
    con=duckdb.connect()
    con.execute("install httpfs; load httpfs")
