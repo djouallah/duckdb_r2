@@ -1,6 +1,4 @@
 import streamlit as st
-import streamlit.components.v1 as components
-from pivottablejs import pivot_ui
 import duckdb
 st.set_page_config(
     page_title="Example of using DuckDB",
@@ -13,13 +11,10 @@ try :
    con=duckdb.connect()
    con.execute("install httpfs; load httpfs")
    df = con.execute(SQL).df()
+   st.write(df)
 except :
  st.write("Your SQL is not correct")
-st.write("Build your chart")
-t = pivot_ui(df)
 
-with open(t.src) as t:
-    components.html(t.read(), width=900, height=1000, scrolling=True)
 ################################################################################
 def convert_df(df):
             # IMPORTANT: Cache the conversion to prevent computation on every rerun
