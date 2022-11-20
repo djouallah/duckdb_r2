@@ -6,7 +6,11 @@ st.set_page_config(
     layout="wide",
                   )
 col1, col2 = st.columns([3, 1])
-SQL = st.text_area('Write a SQL Query','''select * from parquet_metadata('https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2022-08.parquet') limit 5 ''')
+SQL = st.text_area('Write a SQL Query','''SELECT DISTINCT passenger_count    , ROUND (SUM (fare_amount),0) as TotalFares     , ROUND (AVG (fare_amount),0) as AvgFares
+from read_parquet(['https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2022-08.parquet','https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2022-07.parquet',
+'https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2022-06.parquet'])
+group by all order by avgfares desc
+ ''')
 try :
    con=duckdb.connect()
    con.execute("install httpfs; load httpfs")
