@@ -6,8 +6,7 @@ st.set_page_config(
     layout="wide",
                   )
 col1, col2 = st.columns([3, 1])
-SQL = st.text_area('Write a SQL Query','''
-SELECT DISTINCT passenger_count, ROUND (SUM (fare_amount),0) as TotalFares, ROUND (AVG (fare_amount),0) as AvgFares, count(*)
+SQL = st.text_area('Write a SQL Query','''SELECT DISTINCT passenger_count, ROUND (SUM (fare_amount),0) as TotalFares, ROUND (AVG (fare_amount),0) as AvgFares, count(*)
 from read_parquet
 (['https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2022-08.parquet',
 'https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2022-07.parquet',
