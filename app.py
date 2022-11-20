@@ -6,7 +6,7 @@ st.set_page_config(
     layout="wide",
                   )
 col1, col2 = st.columns([3, 1])
-SQL = st.text_input('Write a SQL Query','summarize  from "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2022-06.parquet" ')
+SQL = st.text_input('Write a SQL Query','from "https://s3-eu-west-1.amazonaws.com/pstorage-ucl-2748466690/16218152/complete.parquet"  limit 5" ')
 try :
    con=duckdb.connect()
    con.execute("install httpfs; load httpfs")
