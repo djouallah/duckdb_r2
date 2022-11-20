@@ -1,7 +1,7 @@
 import streamlit as st
 import duckdb
 st.set_page_config(
-    page_title="Example of using DuckDB",
+    page_title="Example of using DuckDB with http files",
     page_icon="✅",
     layout="wide",
                   )
@@ -12,9 +12,8 @@ try :
    con.execute("install httpfs; load httpfs")
    df = con.execute(SQL).df()
    st.write(df)
-except :
- st.write("Your SQL is not correct")
-
+except Exception as er:
+ st.write(er)
 ################################################################################
 def convert_df(df):
             # IMPORTANT: Cache the conversion to prevent computation on every rerun
