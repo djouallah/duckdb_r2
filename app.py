@@ -20,7 +20,7 @@ group by all
  ''')
 try :
    con=duckdb.connect()
-   con.execute("install httpfs; load httpfs")
+   con.execute("install httpfs; load httpfs;  SET enable_http_metadata_cache=true ;PRAGMA enable_object_cache ;")
    df = con.execute(SQL).df()
    st.write(df)
 except Exception as er:
